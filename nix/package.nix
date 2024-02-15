@@ -1,19 +1,23 @@
 { buildDotnetModule
 , lib
+, system
 , version
+, nuget-packageslock2nix 
 }:
 
-# to update deps.nix:
-# checkout out github:gepbird/nixpkgs/moebot-fetch-deps
-# $ pkgs/tools/moebot/update.sh
-# copy pkgs/tools/moebot/deps.nix to this directory
 buildDotnetModule {
   pname = "moe";
   inherit version;
 
   src = ../.;
 
-  nugetDeps = ./deps.nix;
+  # doesn't work yet: https://github.com/mdarocha/nuget-packageslock2nix/issues/2
+  nugetDeps = nuget-packageslock2nix.lib {
+    inherit system;
+    lockfiles = [
+      ../packages.lock.json
+    ];
+  };
 
   projectFile = [ "moe.csproj" ];
 
