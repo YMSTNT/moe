@@ -66,8 +66,6 @@ Create **development.env** file where you cloned this repository and paste the f
 TOKEN=<DISCORD_BOT_ACCESS_TOKEN>
 SERVERID=<DISCORD_SERVER_ID>
 OWNERS=<DISCORD_USER_ID>
-BACKUP_INTERVAL_MINUTES=60
-BACKUPS_TO_KEEP=50
 STATUS_PORT=8000
 ```
 
@@ -97,8 +95,6 @@ To tell the bot which configuration should it use, run it with `--development` o
 - TOKEN: Your Discord bot's access token. Anyone with possession of this token can act on your bot's behalf.
 - SERVERID: The Server ID where guild scoped commands can be registered. Only used when running in development mode.
 - OWNERS: Comma separated list of User IDs who have full access to the bot. Overrides [modranks](#modranks).
-- BACKUP_INTERVAL_MINUTES: Minutes between automatic database backups.
-- BACKUPS_TO_KEEP: Delete old backups after the number of backups exceeds this.
 - STATUS_PORT: Start a web server on this port to appear online for status services.
 
 Commands (including slash commands and context commands) are registered at guild (discord server) scope when using development mode, and global scope when using production mode. Global command registration may take a few seconds or minutes due to Discord's API, but guild scoped commands are almost instant. In order to register commands, you need to run the bot with `--register-commands` parameter. The reason why registering commands is not the default is Discord can rate limit the bot when it tries to register commands over and over again in a short period of time. This can be annoying when debugging.

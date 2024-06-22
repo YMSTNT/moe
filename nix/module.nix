@@ -27,20 +27,6 @@ in
       '';
     };
     settings = {
-      backups-interval-minutes = mkOption {
-        type = int;
-        default = 60;
-        description = ''
-          Minutes between automatic database backups.
-        '';
-      };
-      backups-to-keep = mkOption {
-        type = int;
-        default = 50;
-        description = ''
-          Delete old backups after the number of backups exceeds this.
-        '';
-      };
       status-port = mkOption {
         type = port;
         default = 8000;
@@ -80,13 +66,7 @@ in
         WorkingDirectory = "/var/moe";
         User = "moe";
         EnvironmentFile = cfg.credentialsFile;
-        Environment =
-          let
-            backups-interval-minutes = "BACKUP_INTERVAL_MINUTES=${toString cfg.settings.backups-interval-minutes}";
-            backups-to-keep = "BACKUPS_TO_KEEP=${toString cfg.settings.backups-to-keep}";
-            status-port = "STATUS_PORT=${toString cfg.settings.status-port}";
-          in
-          "${backups-interval-minutes} ${backups-to-keep} ${status-port}";
+        Environment = "STATUS_PORT=${toString cfg.settings.status-port}";
       };
     };
   };

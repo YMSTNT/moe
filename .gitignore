@@ -2,7 +2,6 @@
 *.env
 storage.db
 logs
-backups
 
 # Generated files
 obj
